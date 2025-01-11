@@ -58,7 +58,11 @@ docker compose logs -f
 ### Generate Certificate
 
 ```shell
-docker compose run --rm certbot certonly --webroot --webroot-path /usr/share/nginx/certbot -d www.example.org -m address@example.org --agree-tos --no-eff-email
+docker compose run --rm certbot certonly \
+  --webroot --webroot-path /usr/share/nginx/certbot \
+  --agree-tos --no-eff-email \
+  -m address@example.org \
+  -d www.example.org
 ```
 
 ```shell
