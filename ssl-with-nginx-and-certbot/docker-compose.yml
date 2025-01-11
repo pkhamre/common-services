@@ -1,0 +1,19 @@
+name: common-services
+
+services:
+
+  nginx:
+    image: nginx:1.27.3
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d:ro
+      - ./config/certbot:/etc/nginx/ssl:ro
+      - ./public:/usr/share/nginx:ro
+    ports:
+      - "80:80"
+      - "443:443"
+
+  certbot:
+    image: certbot/certbot:v3.1.0
+    volumes:
+      - ./config/certbot:/etc/letsencrypt:rw
+      - ./public/certbot:/usr/share/nginx/certbot:rw
