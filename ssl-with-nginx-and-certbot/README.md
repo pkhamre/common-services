@@ -1,5 +1,7 @@
 # How to set up nginx and certbot on Docker Compose with automatic renewal of SSL certificates
 
+Replace `www.example.org` with your domain name.
+
 ## Step 1 - nginx and SSL certificate generation
 
 ### docker-compose-initial.yml
