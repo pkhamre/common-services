@@ -26,9 +26,6 @@ services:
       - ./public/certbot:/usr/share/nginx/certbot:rw
 ```
 
-```
-```
-
 ### config/nginx/www.example.org-NOSSL.conf
 
 ```
