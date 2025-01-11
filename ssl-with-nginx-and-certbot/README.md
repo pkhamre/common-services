@@ -1,6 +1,6 @@
 # How to set up nginx and certbot on Docker Compose with automatic renewal of SSL certificates
 
-## Step 1 - nginx and initial SSL Certificates
+## Step 1 - nginx and SSL certificate generation
 
 ### docker-compose-initial.yml
 
@@ -26,6 +26,9 @@ services:
       - ./public/certbot:/usr/share/nginx/certbot:rw
 ```
 
+```
+```
+
 ### config/nginx/www.example.org-NOSSL.conf
 
 ```
@@ -46,9 +49,20 @@ server {
 }
 ```
 
-### Initial Certificate generation
+### Start Services
 
-`docker compose run --rm certbot certonly --webroot --webroot-path /usr/share/nginx/certbot -d www.example.org -m address@example.org --agree-tos --no-eff-email`
+Start the services and optionally check the logs.
+
+```
+docker compose up -d
+docker compose logs -f 
+```
+
+### Generate Certificate
+
+```shell
+docker compose run --rm certbot certonly --webroot --webroot-path /usr/share/nginx/certbot -d www.example.org -m address@example.org --agree-tos --no-eff-email
+```
 
 ```shell
 root@ubuntu-s-1vcpu-1gb-ams3-01:~/basic-infrastructure# docker compose run --rm certbot certonly --webroot --webroot-path /usr/share/nginx/certbot -d www.example.org -m address@example.org --agree-tos --no-eff-email 
@@ -80,7 +94,9 @@ https://ssl-config.mozilla.org/#server=nginx&version=1.27.3&config=intermediate&
 
 ### dhparam
 
-`openssl dhparam -out config/certbot/dhparam.pem 2048`
+```
+openssl dhparam -out config/certbot/dhparam.pem 2048
+```
 
 ### nginx config with SSL - config/nginx/www.example.org-SSL.conf
 
@@ -128,4 +144,13 @@ ssl_trusted_certificate /etc/nginx/ssl/live/www.example.org/chain.pem;
 # replace with the IP address of your resolver;
 # async 'resolver' is important for proper operation of OCSP stapling
 resolver 127.0.0.1;
+```
+
+### Restart services
+
+Restart and check logs.
+
+```
+docker compose down && docker compose up -d
+docker compose logs -f 
 ```
