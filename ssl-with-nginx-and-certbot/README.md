@@ -128,24 +128,4 @@ ssl_trusted_certificate /etc/nginx/ssl/live/www.example.org/chain.pem;
 # replace with the IP address of your resolver;
 # async 'resolver' is important for proper operation of OCSP stapling
 resolver 127.0.0.1;
-
-# If certificates are marked OCSP Must-Staple, consider managing the
-# OCSP stapling cache with an external script, e.g. certbot-ocsp-fetcher
-
-# HSTS
-server {
-  listen 80 default_server;
-  listen [::]:80 default_server;
-
-  server_name www.example.org;
-  server_tokens off;
-
-  location /.well-known/acme-challenge/ {
-    root /usr/share/nginx/certbot;
-  }
-
-  location / {
-    return 301 https://www.example.org$request_uri;
-  }
-}
 ```
