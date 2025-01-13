@@ -12,6 +12,16 @@ services:
       - "80:80"
       - "443:443"
 
+  ghost:
+    image: ghost:5.105.0-alpine
+    environment:
+      url: 'https://its.pkhamre.com'
+      database__client: 'sqlite3'
+      database__connection__filename: 'content/data/ghost-prod.sqlite3'
+    restart: always
+    volumes:
+      - ./data/ghost:/var/lib/ghost/content
+
   certbot:
     image: certbot/certbot:v3.1.0
     volumes:
