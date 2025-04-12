@@ -97,7 +97,7 @@ https://ssl-config.mozilla.org/#server=nginx&version=1.27.3&config=intermediate&
 
 ### dhparam
 
-```
+```shell
 openssl dhparam -out config/certbot/dhparam.pem 2048
 ```
 
@@ -153,13 +153,15 @@ resolver 127.0.0.1;
 
 Restart and check logs.
 
-```
+```shell
 docker compose down && docker compose up -d
 docker compose logs -f 
 ```
 
 ## Renew a certificate
 
+```shell
+docker compose run --rm certbot renew \
+   --webroot --webroot-path /usr/share/nginx/certbot \
+   -m address@example.org --agree-tos --no-eff-email
 ```
-docker compose run --rm certbot renew --webroot --webroot-path /usr/share/nginx/certbot -m address@example.org --agree-tos --no-eff-email
-```⏎   
