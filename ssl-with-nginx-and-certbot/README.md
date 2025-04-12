@@ -157,3 +157,9 @@ Restart and check logs.
 docker compose down && docker compose up -d
 docker compose logs -f 
 ```
+
+## Renew a certificate
+
+```
+docker compose run --rm certbot renew --webroot --webroot-path /usr/share/nginx/certbot -m address@example.org --agree-tos --no-eff-email
+```
